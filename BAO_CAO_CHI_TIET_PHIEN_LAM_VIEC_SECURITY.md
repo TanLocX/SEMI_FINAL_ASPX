@@ -1,8 +1,8 @@
-# HƯỚNG DẪN BẢO MẬT & PHÂN QUYỀN HỆ THỐNG (AUTHENTICATION & AUTHORIZATION)
-> **Học phần:** Lập Trình Web ASPX  
-> **Chủ đề 6:** Authentication / Authorization - Login, Logout, Phân quyền Role (Admin / User)  
-> **Kiến trúc:** Clean Architecture, ASP.NET Web Forms (.NET 4.7.2)  
-> **Công nghệ áp dụng:** Argon2id (OWASP #1), JWT (Access & Refresh Token), HttpOnly Cookies, RBAC BasePage.
+# BÁO CÁO CHI TIẾT PHIÊN LÀM VIỆC & TÀI LIỆU BẢO MẬT HỆ THỐNG
+> **Dự án:** SEMI_FINAL_ASPX - Phân Quyền & Bảo Mật Nâng Cao  
+> **Phiên làm việc:** Nhánh Git `security`  
+> **Nội dung:** Băm mật khẩu Argon2id, Xác thực JWT + HttpOnly Cookies, Phân quyền RBAC BasePage, Tái cấu trúc Clean Architecture  
+> **Mục tiêu học phần:** Bài tập 6 - Authentication / Authorization (Admin & User)
 
 ---
 
@@ -19,6 +19,7 @@
 6. [Cơ sở Dữ liệu & Tài khoản Mẫu (`Data/database.sql`)](#6-cơ-sở-dữ-liệu--tài-khoản-mẫu)
 7. [Kịch bản Demo & Báo cáo Trước Lớp (Đạt Điểm Tối Đa)](#7-kịch-bản-demo--báo-cáo-trước-lớp)
 8. [Các Câu hỏi Giảng viên Thường Hỏi & Gợi ý Trả lời](#8-các-câu-hỏi-giảng-viên-thường-hỏi)
+9. [Nhật Ký Chi Tiết Toàn Bộ Thao Tác & Sửa Đổi Trong Phiên Làm Việc](#9-nhật-ký-chi-tiết-toàn-bộ-thao-tác--sửa-đổi-trong-phiên-làm-việc)
 
 ---
 
@@ -310,3 +311,99 @@ File script CSDL nằm tại: `SEMI_FINAL_ASPX\Data\database.sql`.
 
 ### Q4: Nếu kẻ tấn công có được link `Admin.aspx` thì có xem trộm được dữ liệu không?
 > **Trả lời:** Dạ không thể. Trang `Admin.aspx` kế thừa từ `BasePage` với khai báo `RequiredRole => "Admin"`. Ngay từ giai đoạn khởi tạo vòng đời trang (`OnInit`), `BasePage` đã chặn đứng request nếu không có Access Token hợp lệ của Admin và đẩy sang trang `AccessDenied.aspx` trước khi bất kỳ dữ liệu nào được truy vấn từ CSDL.
+
+---
+
+## 9. Nhật Ký Chi Tiết Toàn Bộ Thao Tác & Sửa Đổi Trong Phiên Làm Việc
+
+Dưới đây là biên bản ghi nhận toàn bộ các tác vụ kỹ thuật, lỗi đã khắc phục và mã nguồn đã thay đổi trong phiên làm việc này:
+
+### 9.1. Khắc phục lỗi biên dịch Roslyn ban đầu (`DirectoryNotFoundException`)
+* **Hiện tượng:** Truy cập trang web báo lỗi `Could not find a part of the path ...\bin\roslyn\csc.exe`.
+* **Nguyên nhân cốt lõi:** Thư mục dự án nằm trên Google Drive (`G:\My Drive\...`). Google Drive đã đồng bộ tạo ra một file cấu hình hệ thống tên là `roslyn` (352 bytes) nằm đè tại đường dẫn thư mục `SEMI_FINAL_ASPX\bin\roslyn`, ngăn cản IIS tạo thư mục compiler.
+* **Thao tác xử lý:**
+  1. Xóa file `roslyn` rác do Google Drive tạo.
+  2. Tạo lại thư mục `SEMI_FINAL_ASPX\bin\roslyn\`.
+  3. Đồng bộ lại toàn bộ 49 file compiler (`csc.exe`, `vbc.exe`, `VBCSCompiler.exe`, các DLL Roslyn) từ `packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\` vào `bin\roslyn\`.
+  4. Kiểm tra lại: Trang `Login.aspx` trả về mã HTTP 200 OK bình thường.
+
+### 9.2. Quản lý phiên bản Git
+* Tạo và chuyển sang nhánh mới: **`security`** (`git checkout -b security`).
+* Cập nhật `.gitignore` để bỏ qua các file rác phát sinh từ Google Drive (`desktop.ini`, `*.ini`) và công cụ tạm thời (`.nuget/`).
+
+### 9.3. Cài đặt các gói NuGet bảo mật cao cấp
+* Do môi trường Google Drive chặn tạo file ánh xạ bộ nhớ trực tiếp (`user-mapped section`), các gói NuGet được tải an toàn qua bộ đệm tạm thời `AppData\Local\Temp\nuget_staging` rồi chuyển vào `packages/`:
+  * `Konscious.Security.Cryptography.Argon2` (v1.3.1) & `Blake2` (v1.1.1): Thuật toán băm mật khẩu Argon2id.
+  * `System.IdentityModel.Tokens.Jwt` (v6.35.0): Quản lý tạo và xác thực JSON Web Token.
+  * `Microsoft.IdentityModel.Tokens` (v6.35.0): Ký số HMAC-SHA256 và xác thực token.
+  * Các gói phụ thuộc tương thích .NET 4.7.2: `System.Buffers` (4.5.1), `System.Memory` (4.5.4), `System.Numerics.Vectors` (4.5.0), `System.Runtime.CompilerServices.Unsafe` (4.7.1), `System.Text.Json` (4.7.2).
+
+### 9.4. Nâng cấp Cơ sở dữ liệu (`Data/database.sql`)
+* Tăng kích thước cột: `ALTER TABLE NguoiDung ALTER COLUMN MatKhau VARCHAR(255) NOT NULL;` để chứa chuỗi hash Argon2id (dài ~100-120 ký tự).
+* Tạo mới bảng **`RefreshToken`** phục vụ quản lý phiên làm việc và thu hồi token:
+  * `Id INT IDENTITY PRIMARY KEY`
+  * `UserId INT FOREIGN KEY REFERENCES NguoiDung(Id)`
+  * `TokenHash VARCHAR(64) NOT NULL` (lưu SHA-256 hash của Refresh Token)
+  * `ExpiryDate DATETIME NOT NULL`
+  * `IsRevoked BIT NOT NULL DEFAULT 0`
+  * `CreatedDate DATETIME NOT NULL DEFAULT GETDATE()`
+* Băm toàn bộ mật khẩu mẫu (`123`) thành chuỗi Argon2id định dạng PHC:  
+  `$argon2id$v=19$m=65536,t=3,p=2$U0BsdF8yMDI2X1NlY3VyMyE=$FCSXORh4NmZxWBHgYkwEFfDAaTSWbqt+ga/ahTEo9pE=`
+* Chạy script cập nhật trực tiếp vào cơ sở dữ liệu `QL_NguoiDung` trên `(localdb)\MSSQLLocalDB`.
+
+### 9.5. Xây dựng các Module Core Bảo Mật
+1. **`Security/Argon2PasswordHasher.cs`:**
+   * Hàm `HashPassword`: Sinh muối ngẫu nhiên 16 bytes bằng `RNGCryptoServiceProvider`, băm với Memory=64MB, Iterations=3, Parallelism=2.
+   * Hàm `VerifyPassword`: Trích xuất salt và tham số từ chuỗi PHC, băm lại mật khẩu nhập vào và so sánh an toàn bằng hàm `SlowEquals` (Constant-time comparison chống Timing Attack).
+2. **`Security/JwtTokenService.cs`:**
+   * Hàm `GenerateAccessToken`: Sinh JWT hạn sống 15 phút, chứa Claims: `userId`, `sub` (tên đăng nhập), `name` (họ tên), `role` (Admin/User), `jti`. Ký bằng thuật toán `HmacSha256`.
+   * Hàm `GenerateRefreshToken`: Sinh chuỗi ngẫu nhiên 32 bytes an toàn mật mã học.
+   * Hàm `HashRefreshToken`: Băm SHA-256 Refresh Token để lưu trữ an toàn trong SQL.
+   * Hàm `ValidateAccessToken`: Xác thực chữ ký và thời hạn token (cho phép lệch đồng hồ tối đa 1 phút).
+3. **`Security/TokenCookieManager.cs`:**
+   * Đóng gói Access Token (15m) và Refresh Token (7d) vào Cookies với cờ **`HttpOnly = true`** và **`SameSite = Lax`**.
+   * Hàm `ClearAuthCookies`: Đặt hạn sử dụng về quá khứ để xóa sạch cookie trên trình duyệt khi đăng xuất.
+4. **`Data/RefreshTokenRepository.cs`:**
+   * Thao tác SQL với bảng `RefreshToken`: `SaveRefreshToken`, `RevokeRefreshToken`.
+   * Hàm `TryRotateRefreshToken`: Triển khai cơ chế xoay vòng token (Refresh Token Rotation) - thu hồi token cũ và phát hành cặp token mới khi Access Token hết hạn.
+
+### 9.6. Xây dựng Lớp Phân Quyền Nền Tảng (`Common/BasePage.cs`)
+* Kế thừa `System.Web.UI.Page`.
+* Tại sự kiện vòng đời `OnInit`:
+  * Đọc `jwt_access_token` từ cookie. Nếu hợp lệ $\rightarrow$ gắn `ClaimsPrincipal` vào context và kiểm tra `RequiredRole`.
+  * Nếu Access Token hết hạn $\rightarrow$ Tự động đọc `jwt_refresh_token` để thực hiện **Silent Refresh** (cấp lại Access Token mới và duy trì phiên làm việc cho người dùng mà không bắt đăng nhập lại).
+  * Nếu token không hợp lệ hoặc đã bị thu hồi $\rightarrow$ Chuyển hướng về `Login.aspx`.
+  * Nếu tài khoản thường truy cập trang có `RequiredRole = "Admin"` $\rightarrow$ Chuyển hướng về `AccessDenied.aspx` (403).
+* Áp dụng kế thừa:
+  * `Admin.aspx.cs`: Kế thừa `BasePage`, khai báo `public override string RequiredRole => "Admin";`.
+  * `User.aspx.cs`: Kế thừa `BasePage`, không khai báo `RequiredRole` (cho phép mọi người dùng đã đăng nhập).
+
+### 9.7. Cập nhật Luồng Đăng nhập & Đăng xuất
+* **`Login.aspx.cs`:**
+  * Kiểm tra tài khoản bằng tham số `@u` chống SQL Injection.
+  * Kiểm tra trạng thái tài khoản `TrangThai == "Bị khóa"` $\rightarrow$ Chặn đăng nhập.
+  * Xác thực mật khẩu qua `Argon2PasswordHasher.VerifyPassword`.
+  * Đăng nhập thành công $\rightarrow$ Sinh cặp JWT, lưu Refresh Token vào SQL, gửi HttpOnly Cookies và điều hướng theo Role (Admin vào `Admin.aspx`, User vào `User.aspx`).
+* **`Logout.aspx.cs`:**
+  * Thu hồi Refresh Token trong SQL, xóa toàn bộ cookie token và hủy phiên session.
+
+### 9.8. Tái cấu trúc chuẩn Clean Architecture
+* Gom toàn bộ các file rải rác ở thư mục gốc vào các thư mục chuyên biệt:
+  * `Security/`: `Argon2PasswordHasher.cs`, `JwtTokenService.cs`, `TokenCookieManager.cs`.
+  * `Data/`: `RefreshTokenRepository.cs`, `database.sql`.
+  * `Common/`: `BasePage.cs`, `SecurityHelper.cs`.
+  * `Tests/`: `test_security.ps1`.
+* Cập nhật toàn bộ `using` và `namespace` tương ứng trong mã nguồn.
+* Cập nhật danh sách file biên dịch trong `SEMI_FINAL_ASPX.csproj`.
+
+### 9.9. Khắc phục lỗi `HTTP Error 403.14 - Forbidden` (Trang mặc định)
+* **Hiện tượng:** Truy cập URL gốc `https://localhost:44320/` bị báo lỗi 403.14 do thiếu Default Document.
+* **Xử lý:**
+  * Thêm cấu hình `<system.webServer><defaultDocument>` vào `Web.config` trỏ mặc định vào `Login.aspx`.
+  * Thêm `<StartPageUrl>Login.aspx</StartPageUrl>` vào file `.csproj` để khi bấm F5 trong Visual Studio sẽ tự động mở thẳng `Login.aspx`.
+
+### 9.10. Kiểm thử tự động & Trạng thái Git sẵn sàng
+* Đã chạy script kiểm thử tự động `Tests/test_security.ps1` vượt qua toàn bộ **8/8 bài test** (Login, HttpOnly Cookies, Phân quyền RBAC 403, Silent Refresh, Logout, Admin access).
+* Dự án build hoàn toàn sạch: **0 Warning, 0 Error**.
+* Toàn bộ các thay đổi đã được commit sạch sẽ vào Git local.
+* Nhánh hiện tại: **`security`** (sẵn sàng cho lệnh push lên repository từ xa `origin`).
