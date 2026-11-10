@@ -37,7 +37,7 @@
                     Bạn đang đăng nhập với tư cách <strong>Người dùng thường (User)</strong>. Bạn chỉ có quyền tra cứu danh sách.
                 </div>
 
-                <a href="Admin.aspx" class="btn btn-sm btn-outline-primary">Thử vào trang Admin</a>
+                <%--  --%>
             </div>
 
 
