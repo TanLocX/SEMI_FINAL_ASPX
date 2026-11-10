@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Konscious.Security.Cryptography;
 
-namespace SEMI_FINAL_ASPX
+namespace SEMI_FINAL_ASPX.Security
 {
     /// <summary>
     /// Xử lý băm và kiểm tra mật khẩu bằng thuật toán Argon2id (Chuẩn OWASP cao nhất).

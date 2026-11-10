@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace SEMI_FINAL_ASPX
+namespace SEMI_FINAL_ASPX.Security
 {
     /// <summary>
     /// Dịch vụ quản lý JWT: Sinh Access Token, Refresh Token và xác thực Token.

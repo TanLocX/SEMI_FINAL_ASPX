@@ -1,4 +1,5 @@
 Add-Type -AssemblyName System.Net.Http
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
 
 $baseUrl = "http://localhost:61546"
 $handler = New-Object System.Net.Http.HttpClientHandler

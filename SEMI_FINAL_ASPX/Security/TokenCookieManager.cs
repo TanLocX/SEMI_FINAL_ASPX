@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 
-namespace SEMI_FINAL_ASPX
+namespace SEMI_FINAL_ASPX.Security
 {
     /// <summary>
     /// Quản lý việc lưu trữ và thu hồi Access Token & Refresh Token qua HttpOnly Cookie.

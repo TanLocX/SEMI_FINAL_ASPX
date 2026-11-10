@@ -1,8 +1,9 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using SEMI_FINAL_ASPX.Security;
 
-namespace SEMI_FINAL_ASPX
+namespace SEMI_FINAL_ASPX.Data
 {
     /// <summary>
     /// Thao tác CSDL cho Refresh Token (Lưu trữ, Xác thực xoay vòng và Thu hồi token).

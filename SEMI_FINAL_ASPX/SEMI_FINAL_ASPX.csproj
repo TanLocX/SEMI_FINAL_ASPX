@@ -135,7 +135,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="database.sql" />
+    <Content Include="Data\database.sql" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
@@ -149,12 +149,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Argon2PasswordHasher.cs" />
-    <Compile Include="JwtTokenService.cs" />
-    <Compile Include="TokenCookieManager.cs" />
-    <Compile Include="RefreshTokenRepository.cs" />
-    <Compile Include="BasePage.cs" />
-    <Compile Include="SecurityHelper.cs" />
+    <Compile Include="Security\Argon2PasswordHasher.cs" />
+    <Compile Include="Security\JwtTokenService.cs" />
+    <Compile Include="Security\TokenCookieManager.cs" />
+    <Compile Include="Data\RefreshTokenRepository.cs" />
+    <Compile Include="Common\BasePage.cs" />
+    <Compile Include="Common\SecurityHelper.cs" />
     <Compile Include="AccessDenied.aspx.cs">
       <DependentUpon>AccessDenied.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

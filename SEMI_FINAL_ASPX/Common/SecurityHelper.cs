@@ -2,8 +2,10 @@ using System;
 using System.Security.Claims;
 using System.Web;
 using System.Web.UI;
+using SEMI_FINAL_ASPX.Data;
+using SEMI_FINAL_ASPX.Security;
 
-namespace SEMI_FINAL_ASPX
+namespace SEMI_FINAL_ASPX.Common
 {
     /// <summary>
     /// Lớp tiện ích bảo mật dùng chung cho toàn bộ hệ thống.
