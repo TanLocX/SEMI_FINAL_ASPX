@@ -252,6 +252,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61546</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <StartPageUrl>Login.aspx</StartPageUrl>
           <IISUrl>https://localhost:44320/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
