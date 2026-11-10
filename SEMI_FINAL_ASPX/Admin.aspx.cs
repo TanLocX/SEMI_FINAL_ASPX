@@ -10,32 +10,21 @@ using System.Web.UI.WebControls;
 
 namespace SEMI_FINAL_ASPX
 {
-    public partial class Admin : System.Web.UI.Page
+    public partial class Admin : BasePage
     {
+        // Yêu cầu bắt buộc Role "Admin" (BasePage tự động kiểm tra trong OnInit)
+        public override string RequiredRole => "Admin";
+
         private string strConn = ConfigurationManager.ConnectionStrings["QLNguoiDungConn"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1. KIỂM TRA AUTHENTICATION: Chưa đăng nhập thì về Login
-            if (Session["Username"] == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
-
-            // 2. KIỂM TRA AUTHORIZATION: Đã đăng nhập nhưng KHÔNG PHẢI ADMIN -> Đẩy sang AccessDenied.aspx
-            if (Session["Role"] == null || Session["Role"].ToString() != "Admin")
-            {
-                Response.Redirect("AccessDenied.aspx");
-                return;
-            }
-
             if (!IsPostBack)
             {
-                // 3. HIỂN THỊ TÊN ADMIN LÊN NAVBAR
-                lblAdminName.Text = Session["FullName"] != null ? Session["FullName"].ToString() : Session["Username"].ToString();
+                // Lấy thông tin họ tên từ JWT Claim (được trích xuất tự động qua BasePage)
+                lblAdminName.Text = CurrentFullName;
 
-                // 4. NẠP DỮ LIỆU CSDL VÀO REPEATER
+                // Nạp danh sách người dùng
                 LoadDanhSachNguoiDung();
             }
         }
@@ -56,12 +45,10 @@ namespace SEMI_FINAL_ASPX
             }
         }
 
-        // 5. NÚT ĐĂNG XUẤT
+        // Xử lý nút đăng xuất bảo mật
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            Session.Clear();
-            Session.Abandon();
-            Response.Redirect("Login.aspx");
+            SignOut();
         }
     }
 }

@@ -10,26 +10,19 @@ using System.Web.UI.WebControls;
 
 namespace SEMI_FINAL_ASPX
 {
-    public partial class User : System.Web.UI.Page
+    public partial class User : BasePage
     {
+        // BasePage tự động kiểm tra Authentication và trích xuất Claims trong OnInit
         private string strConn = ConfigurationManager.ConnectionStrings["QLNguoiDungConn"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1. KIỂM TRA ĐĂNG NHẬP (AUTHENTICATION)
-            // Nếu chưa đăng nhập thì đuổi về Login.aspx
-            if (Session["Username"] == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
-
             if (!IsPostBack)
             {
-                // 2. HIỂN THỊ TÊN NGƯỜI DÙNG LÊN NAVBAR
-                lblUserName.Text = Session["FullName"] != null ? Session["FullName"].ToString() : Session["Username"].ToString();
+                // Hiển thị tên người dùng từ JWT Claim
+                lblUserName.Text = CurrentFullName;
 
-                // 3. ĐỔ DỮ LIỆU TỪ CSDL VÀO REPEATER
+                // Đổ dữ liệu từ CSDL vào Repeater
                 LoadDanhSachNguoiDung();
             }
         }
@@ -51,12 +44,10 @@ namespace SEMI_FINAL_ASPX
             }
         }
 
-        // 4. XỬ LÝ NÚT ĐĂNG XUẤT (LOGOUT)
+        // Xử lý nút đăng xuất bảo mật
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            Session.Clear();    // Xóa hết dữ liệu phiên
-            Session.Abandon();  // Hủy phiên làm việc
-            Response.Redirect("Login.aspx");
+            SignOut();
         }
     }
 }

@@ -16,4 +16,7 @@ packages/
 ## Temporary files
 *.log
 *.tmp
+desktop.ini
+*.ini
+.nuget/
 

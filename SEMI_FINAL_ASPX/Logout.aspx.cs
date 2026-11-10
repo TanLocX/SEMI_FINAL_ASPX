@@ -11,7 +11,7 @@ namespace SEMI_FINAL_ASPX
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            SecurityHelper.SignOut(this);
         }
     }
 }
