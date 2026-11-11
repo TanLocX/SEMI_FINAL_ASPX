@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SEMI_FINAL_ASPX.Common;
+using SEMI_FINAL_ASPX.Data;
+using SEMI_FINAL_ASPX.Security;
 
 namespace SEMI_FINAL_ASPX
 {
@@ -16,15 +19,13 @@ namespace SEMI_FINAL_ASPX
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Nếu người dùng đã đăng nhập từ trước rồi thì tự động đẩy về trang tương ứng
             if (!IsPostBack)
             {
-                if (Session["Role"] != null)
+                // Nếu đã đăng nhập hợp lệ qua JWT Cookie, tự động chuyển đến đúng trang
+                if (SecurityHelper.IsAuthenticated(Request))
                 {
-                    if (Session["Role"].ToString() == "Admin")
-                        Response.Redirect("Admin.aspx");
-                    else
-                        Response.Redirect("User.aspx");
+                    string role = SecurityHelper.GetCurrentRole(Request);
+                    Response.Redirect(role == "Admin" ? "Admin.aspx" : "User.aspx", true);
                 }
             }
         }
@@ -37,42 +38,67 @@ namespace SEMI_FINAL_ASPX
             // Kiểm tra trong CSDL
             using (SqlConnection conn = new SqlConnection(strConn))
             {
-                string sql = "SELECT HoTen, Quyen FROM NguoiDung WHERE TenDangNhap = @u AND MatKhau = @p";
+                // Lấy thông tin tài khoản theo tên đăng nhập (chống SQL Injection)
+                string sql = "SELECT Id, MatKhau, HoTen, Quyen, TrangThai FROM NguoiDung WHERE TenDangNhap = @u";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    // Truyền tham số để tránh SQL Injection
                     cmd.Parameters.AddWithValue("@u", username);
-                    cmd.Parameters.AddWithValue("@p", password);
 
                     try
                     {
                         conn.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        if (reader.Read())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            // 1. ĐĂNG NHẬP THÀNH CÔNG -> ĐỌC THÔNG TIN
-                            string hoTen = reader["HoTen"].ToString();
-                            string quyen = reader["Quyen"].ToString();
-
-                            // 2. LƯU VÀO SESSION (Authentication & Authorization)
-                            Session["Username"] = username;
-                            Session["FullName"] = hoTen;
-                            Session["Role"] = quyen;
-
-                            // 3. ĐIỀU HƯỚNG THEO ROLE (PHÂN QUYỀN)
-                            if (quyen == "Admin")
+                            if (reader.Read())
                             {
-                                Response.Redirect("Admin.aspx");
+                                int userId = Convert.ToInt32(reader["Id"]);
+                                string storedHash = reader["MatKhau"].ToString();
+                                string hoTen = reader["HoTen"].ToString();
+                                string quyen = reader["Quyen"].ToString();
+                                string trangThai = reader["TrangThai"] != DBNull.Value ? reader["TrangThai"].ToString() : "";
+
+                                // 1. Kiểm tra trạng thái tài khoản
+                                if (trangThai == "Bị khóa")
+                                {
+                                    lblThongBao.Text = "Tài khoản của bạn đã bị khóa! Vui lòng liên hệ quản trị viên.";
+                                    return;
+                                }
+
+                                // 2. Xác thực mật khẩu bằng Argon2id (hỗ trợ cả plain-text cũ nếu có)
+                                if (Argon2PasswordHasher.VerifyPassword(password, storedHash))
+                                {
+                                    reader.Close(); // Đóng reader để lưu Refresh Token
+
+                                    // 3. Sinh cặp JWT Token: Access Token (15m) + Refresh Token (7d)
+                                    string accessToken = JwtTokenService.GenerateAccessToken(userId, username, hoTen, quyen);
+                                    string refreshToken = JwtTokenService.GenerateRefreshToken();
+                                    DateTime refreshExpiry = DateTime.UtcNow.AddDays(JwtTokenService.RefreshTokenExpirationDays);
+
+                                    // 4. Lưu mã băm của Refresh Token vào CSDL (bảo mật thu hồi)
+                                    RefreshTokenRepository.SaveRefreshToken(userId, refreshToken, refreshExpiry);
+
+                                    // 5. Ghi Token vào HttpOnly Cookies (Chống XSS hoàn toàn)
+                                    TokenCookieManager.SetAuthCookies(Response, Request, accessToken, refreshToken);
+
+                                    // 6. Lưu Session song song để tương thích
+                                    Session["Username"] = username;
+                                    Session["FullName"] = hoTen;
+                                    Session["Role"] = quyen;
+
+                                    // 7. Điều hướng theo phân quyền RBAC
+                                    if (string.Equals(quyen, "Admin", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        Response.Redirect("Admin.aspx", true);
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("User.aspx", true);
+                                    }
+                                    return;
+                                }
                             }
-                            else
-                            {
-                                Response.Redirect("User.aspx");
-                            }
-                        }
-                        else
-                        {
-                            // Đăng nhập thất bại
+
+                            // Thông báo chung để chống tấn công dò tìm tài khoản (Username Enumeration)
                             lblThongBao.Text = "Tài khoản hoặc mật khẩu không chính xác!";
                         }
                     }
