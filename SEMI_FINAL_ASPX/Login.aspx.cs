@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration; // Thư viện đọc chuỗi kết nối trong Web.config
 using System.Data.SqlClient; // Thư viện kết nối và thực thi truy vấn SQL Server
@@ -41,11 +41,13 @@ namespace SEMI_FINAL_ASPX
                 // =========================================================================================
                 // 🛡️ PHÒNG THỦ LUỒNG 3: CHỐNG TẤN CÔNG SQL INJECTION BẰNG PARAMETERIZED QUERY
                 // =========================================================================================
-                // ❌ SAI LẦM NGUY HIỂM: Nối chuỗi trực tiếp "WHERE TenDangNhap = '" + username + "'"
-                //    Kẻ xấu nhập: admin' -- hoặc ' OR 1=1 -- sẽ đăng nhập được mà không cần mật khẩu!
-                //
-                // ✔️ GIẢI PHÁP AN TOÀN: Dùng dấu giữ chỗ tham số @u và @p trong câu lệnh SQL.
-                // =========================================================================================
+                
+                // -----------------------------------------------------------------------------------------
+                // ❌ CÁCH VIẾT THÔNG THƯỜNG / NỐI CHUỖI (ĐÃ ĐƯỢC COMMENT LẠI VÌ CÓ LỖ HỔNG BẢO MẬT):
+                // string sql = "SELECT HoTen, Quyen FROM NguoiDung WHERE TenDangNhap = '" + username + "' AND MatKhau = '" + password + "'";
+                // -----------------------------------------------------------------------------------------
+
+                // ✔️ GIẢI PHÁP AN TOÀN TUYỆT ĐỐI: Dùng dấu giữ chỗ tham số @u và @p trong câu lệnh SQL
                 string sql = "SELECT HoTen, Quyen FROM NguoiDung WHERE TenDangNhap = @u AND MatKhau = @p";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

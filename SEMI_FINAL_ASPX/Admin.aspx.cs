@@ -19,7 +19,7 @@ namespace SEMI_FINAL_ASPX
         {
             // =========================================================================================
             // 🛡️ PHÒNG THỦ LUỒNG 2: VÔ HIỆU HÓA CACHE TRÌNH DUYỆT (CHỐNG NÚT "BACK" SAU LOGOUT)
-            // =========================================================================================
+            // =========================================================================================    
             // Gửi đầy đủ Header HTTP để cấm trình duyệt lưu cache trang này
             Response.Buffer = true;
             Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
