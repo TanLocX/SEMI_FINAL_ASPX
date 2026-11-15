@@ -1,8 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="SEMI_FINAL_ASPX.Admin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="SEMI_FINAL_ASPX.Admin" ResponseEncoding="utf-8" CodePage="65001" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta charset="utf-8" />
     <title>Trang Quản Trị - Admin</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript">

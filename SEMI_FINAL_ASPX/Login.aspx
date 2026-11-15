@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SEMI_FINAL_ASPX.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SEMI_FINAL_ASPX.Login" ResponseEncoding="utf-8" CodePage="65001" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta charset="utf-8" />
     <title>ĐĂNG NHẬP HỆ THỐNG</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
 </head>

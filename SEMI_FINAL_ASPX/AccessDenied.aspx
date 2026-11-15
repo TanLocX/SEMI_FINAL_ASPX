@@ -1,8 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AccessDenied.aspx.cs" Inherits="SEMI_FINAL_ASPX.AccessDenied" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AccessDenied.aspx.cs" Inherits="SEMI_FINAL_ASPX.AccessDenied" ResponseEncoding="utf-8" CodePage="65001" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta charset="utf-8" />
     <title>403 - Từ chối truy cập</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
 </head>
