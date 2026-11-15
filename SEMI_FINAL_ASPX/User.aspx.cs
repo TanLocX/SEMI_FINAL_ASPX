@@ -17,7 +17,7 @@ namespace SEMI_FINAL_ASPX
         protected void Page_Load(object sender, EventArgs e)
         {
             // 1. KIỂM TRA ĐĂNG NHẬP (AUTHENTICATION)
-            // Nếu chưa đăng nhập thì đuổi về Login.aspx
+            // Nếu chưa đăng nhập thì chuyển về Login.aspx
             if (Session["Username"] == null)
             {
                 Response.Redirect("Login.aspx");

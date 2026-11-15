@@ -9,8 +9,6 @@
 
 namespace SEMI_FINAL_ASPX
 {
-
-
     public partial class AccessDenied
     {
 
