@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SEMI_FINAL_ASPX.Login" ResponseEncoding="utf-8" CodePage="65001" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SEMI_FINAL_ASPX.Login" %>
 
 <!DOCTYPE html>
 
