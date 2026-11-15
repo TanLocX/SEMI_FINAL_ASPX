@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration; // Thư viện đọc chuỗi kết nối trong Web.config
 using System.Data.SqlClient; // Thư viện kết nối và thực thi truy vấn SQL Server

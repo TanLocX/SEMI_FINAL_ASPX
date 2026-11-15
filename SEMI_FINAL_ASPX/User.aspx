@@ -5,6 +5,18 @@
 <head runat="server">
     <title>Trang Người Dùng - Cổng Thông Tin</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        // 🛡️ PHÒNG THỦ LUỒNG 2: CHỐNG HIỂN THỊ LẠI TRANG KHI BẤM NÚT "BACK" (BFCACHE)
+        window.addEventListener("pageshow", function (event) {
+            var isBack = event.persisted || 
+                (window.performance && window.performance.navigation && window.performance.navigation.type === 2) ||
+                (window.performance && window.performance.getEntriesByType && window.performance.getEntriesByType("navigation")[0] && window.performance.getEntriesByType("navigation")[0].type === "back_forward");
+
+            if (isBack) {
+                window.location.reload(); // Ép kiểm tra Session trên Server
+            }
+        });
+    </script>
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">

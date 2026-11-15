@@ -5,6 +5,20 @@
 <head runat="server">
     <title>Trang Quản Trị - Admin</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        // 🛡️ PHÒNG THỦ LUỒNG 2: CHỐNG LƯU TRỮ VÀ HIỂN THỊ LẠI TRANG KHI BẤM NÚT "BACK" (BFCACHE)
+        // Khi người dùng bấm nút Back (<-), trình duyệt Chrome/Edge thường lấy bản chụp trong RAM (BFCache).
+        // Đoạn script này bắt sự kiện nạp trang từ cache và ép tải lại từ Server để kích hoạt kiểm tra Session.
+        window.addEventListener("pageshow", function (event) {
+            var isBack = event.persisted || 
+                (window.performance && window.performance.navigation && window.performance.navigation.type === 2) ||
+                (window.performance && window.performance.getEntriesByType && window.performance.getEntriesByType("navigation")[0] && window.performance.getEntriesByType("navigation")[0].type === "back_forward");
+
+            if (isBack) {
+                window.location.reload(); // Gửi request lên Server -> Bị Page_Load đá về Login.aspx ngay
+            }
+        });
+    </script>
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration; // Thư viện đọc file Web.config
 using System.Data;
@@ -20,9 +20,15 @@ namespace SEMI_FINAL_ASPX
             // =========================================================================================
             // 🛡️ PHÒNG THỦ LUỒNG 2: VÔ HIỆU HÓA CACHE TRÌNH DUYỆT (CHỐNG NÚT "BACK" SAU LOGOUT)
             // =========================================================================================
-            Response.Cache.SetCacheability(HttpCacheability.NoCache); // Yêu cầu trình duyệt không lưu bộ nhớ đệm
-            Response.Cache.SetNoStore();                             // Không lưu trữ dữ liệu trang lên ổ đĩa/RAM client
-            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1)); // Thời gian hết hạn lùi về quá khứ
+            Response.Buffer = true;
+            Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+            Response.Expires = -1000;
+            Response.CacheControl = "no-cache";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
+            Response.AddHeader("Pragma", "no-cache");
 
             // =========================================================================================
             // 🛡️ PHÒNG THỦ LUỒNG 1: CHỐNG TRUY CẬP TRỰC TIẾP BẰNG URL (FORCE BROWSING)
