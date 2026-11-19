@@ -26,6 +26,7 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage{tcolorbox}
+\usepackage{float}
 
 
 
@@ -365,7 +366,7 @@ Liên kết dữ liệu (Data Binding) trong Web Forms là quy trình gắn kế
 \section{So sánh chuyên sâu: Quản lý phiên bằng Session State, Forms Authentication và JWT Token}
 Bảng dưới đây tiến hành phân tích và so sánh chi tiết giữa 3 công nghệ xác thực phổ biến:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \small
 \renewcommand{\arraystretch}{1.2}
@@ -399,11 +400,12 @@ Bài toán đặt ra là xây dựng một cổng thông tin xác thực tập t
 
 Cơ sở dữ liệu QL\_NguoiDung được thiết kế trên hệ quản trị Microsoft SQL Server với bảng trung tâm \texttt{NguoiDung} có cấu trúc chuẩn hóa như sau:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\small
-\renewcommand{\arraystretch}{1.25}
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.5cm}}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.02}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.2cm}}
 \toprule
 \textbf{Tên cột} & \textbf{Kiểu dữ liệu} & \textbf{Khóa / Ràng buộc} & \textbf{Mô tả nghiệp vụ} & \textbf{Ghi chú an ninh} \\
 \midrule
@@ -461,7 +463,7 @@ INSERT INTO NguoiDung (TenDangNhap, MatKhau, HoTen, Email, Quyen, TrangThai) VAL
 GO
 \end{lstlisting}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{hinh2_1_csdl_nguoidung.jpg}
 \caption{Dữ liệu thực tế của bảng NguoiDung trong SQL Server Management Studio}\label{fig:csdl_nguoidung}
@@ -506,31 +508,31 @@ Hệ thống bao gồm 4 trang giao diện độc lập được thiết kế đ
     \item \textbf{Trang Từ chối truy cập (AccessDenied.aspx):} Đóng vai trò là trang thông báo lỗi 403 Forbidden. Khi người dùng cố tình truy cập vượt quyền, trang sẽ hiển thị mã lỗi số 403 màu đỏ cỡ lớn, thông báo lý do bị từ chối và cung cấp 2 nút điều hướng: 'Quay về trang Người dùng' hoặc 'Đổi tài khoản' để đăng nhập lại.
 \end{enumerate}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{so_do_dieu_huong_he_thong.png}
 \caption{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role}\label{fig:so_do_dieu_huong}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.92\textwidth]{hinh2_3_login.jpg}
 \caption{Giao diện trang Đăng nhập hệ thống (Login.aspx) với Bootstrap 5}\label{fig:ui_login}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.92\textwidth]{hinh2_4_admin.jpg}
 \caption{Giao diện trang Quản trị (Admin.aspx) với quyền hạn Admin và bảng Repeater}\label{fig:ui_admin}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.92\textwidth]{hinh2_5_user.jpg}
 \caption{Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only)}\label{fig:ui_user}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.82\textwidth]{hinh2_6_access_denied.jpg}
 \caption{Giao diện trang Từ chối truy cập 403 Forbidden (AccessDenied.aspx)}\label{fig:ui_accessdenied}
@@ -692,10 +694,10 @@ Theo yêu cầu của học phần, nhóm báo cáo có nhiệm vụ chủ trì 
 
 Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho sinh viên trong lớp được quy định cụ thể như sau:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \small
-\renewcommand{\arraystretch}{1.25}
+\renewcommand{\arraystretch}{1.12}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}p{3.5cm}}
 \toprule
 \textbf{Tiêu chí đánh giá} & \textbf{Mô tả yêu cầu kỹ thuật} & \textbf{Điểm chuẩn} & \textbf{Kết quả nghiệm thu} \\
@@ -717,7 +719,7 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 \section{Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}
 Để chứng minh tính đúng đắn và khả năng phòng thủ toàn diện của hệ thống, nhóm thực hiện quy trình kiểm thử với 5 kịch bản thực nghiệm:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \footnotesize
 \renewcommand{\arraystretch}{1.25}

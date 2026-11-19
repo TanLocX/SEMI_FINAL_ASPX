@@ -19,8 +19,8 @@
 \contentsline {section}{\numberline {2.1}Phân tích bài toán và thiết kế cơ sở dữ liệu trên SQL Server}{8}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Khởi tạo dự án ASP.NET Web Forms và cấu hình Web.config}{10}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Thiết kế giao diện người dùng hiện đại với Bootstrap 5}{11}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}{12}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Cơ chế Đăng nhập an toàn và chống SQL Injection (Login.aspx.cs)}{12}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.4}Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}{14}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Cơ chế Đăng nhập an toàn và chống SQL Injection (Login.aspx.cs)}{14}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Cơ chế bảo vệ trang chống duyệt URL trực tiếp (Page\_Load)}{15}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Cơ chế vô hiệu hóa Cache trình duyệt và chống nút Back (Anti-BFCache)}{16}{subsection.2.4.3}%
 \contentsline {subsection}{\numberline {2.4.4}Xử lý Đăng xuất an toàn và hủy toàn bộ phiên làm việc (Logout.aspx.cs)}{17}{subsection.2.4.4}%
