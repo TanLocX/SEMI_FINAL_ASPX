@@ -364,7 +364,7 @@ Liên kết dữ liệu (Data Binding) trong Web Forms là quy trình gắn kế
 Điều khiển \texttt{asp:RequiredFieldValidator} được sử dụng trên form đăng nhập để đảm bảo người dùng không để trống tên đăng nhập hoặc mật khẩu. Ưu điểm lớn của điều khiển này là cung cấp cơ chế kiểm tra tính hợp lệ kép (Double Validation): Ở phía Client, tự động chặn form submit nếu rỗng; ở phía Server, kiểm tra lại thông qua \texttt{Page.IsValid} trước khi thực thi truy vấn SQL.
 
 \section{So sánh chuyên sâu: Quản lý phiên bằng Session State, Forms Authentication và JWT Token}
-Bảng dưới đây tiến hành phân tích và so sánh chi tiết giữa 3 công nghệ xác thực phổ biến:
+Nhằm cung cấp cái nhìn tổng quan và đối chiếu rõ nét giữa các giải pháp xác thực phổ biến hiện nay, Bảng \ref{tab:ss_vs_forms_jwt} tiến hành phân tích và so sánh chuyên sâu giữa ba công nghệ xác thực (Session State, Forms Authentication và Token-based JWT) theo các tiêu chuẩn về kiến trúc, cơ chế lưu trữ, mức độ bảo mật và khả năng mở rộng:
 
 \begin{table}[H]
 \centering
@@ -398,7 +398,7 @@ Bảng dưới đây tiến hành phân tích và so sánh chi tiết giữa 3 c
 \section{Phân tích bài toán và thiết kế cơ sở dữ liệu trên SQL Server}
 Bài toán đặt ra là xây dựng một cổng thông tin xác thực tập trung cho một tổ chức giáo dục / doanh nghiệp. Hệ thống yêu cầu phân định rạch ròi giữa hai nhóm đối tượng: Quản trị viên (Admin) -- người chịu trách nhiệm quản lý danh sách người dùng, và Người dùng thông thường (User) -- người chỉ có quyền tra cứu thông tin cá nhân và danh bạ thành viên.
 
-Cơ sở dữ liệu QL\_NguoiDung được thiết kế trên hệ quản trị Microsoft SQL Server với bảng trung tâm \texttt{NguoiDung} có cấu trúc chuẩn hóa như sau:
+Cơ sở dữ liệu QL\_NguoiDung được thiết kế trên hệ quản trị Microsoft SQL Server với bảng trung tâm \texttt{NguoiDung}. Cấu trúc các trường dữ liệu, kiểu dữ liệu, khóa chính và ràng buộc toàn vẹn của bảng được đặc tả chi tiết tại Bảng \ref{tab:nguoidung_schema}:
 
 \begin{table}[H]
 \centering
@@ -463,6 +463,8 @@ INSERT INTO NguoiDung (TenDangNhap, MatKhau, HoTen, Email, Quyen, TrangThai) VAL
 GO
 \end{lstlisting}
 
+Sau khi thực thi kịch bản SQL trên trong môi trường SQL Server Management Studio (SSMS), bảng dữ liệu \texttt{NguoiDung} được khởi tạo thành công với 5 tài khoản mẫu thử nghiệm như thể hiện tại Hình \ref{fig:csdl_nguoidung}:
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{hinh2_1_csdl_nguoidung.jpg}
@@ -500,41 +502,45 @@ Cấu hình tệp \texttt{Web.config} là bước quan trọng nhất để thi�
 \end{lstlisting}
 
 \section{Thiết kế giao diện người dùng hiện đại với Bootstrap 5}
-Hệ thống bao gồm 4 trang giao diện độc lập được thiết kế đồng bộ theo phong cách hiện đại với thư viện Bootstrap 5:
-\begin{enumerate}
-    \item \textbf{Trang Đăng nhập (Login.aspx):} Thiết kế dạng Split-screen (chia đôi màn hình). Nửa bên trái là khối thương hiệu với dải màu Gradient (\#4f46e5 đến \#7c3aed) và logo học phần. Nửa bên phải là form đăng nhập gồm các ô \texttt{asp:TextBox}, thông báo lỗi \texttt{asp:Label} (màu đỏ) và các điều khiển \texttt{asp:RequiredFieldValidator} bắt lỗi bỏ trống.
-    \item \textbf{Trang Quản trị (Admin.aspx):} Dành riêng cho vai trò Admin. Thanh điều hướng Navbar màu tối (\texttt{bg-dark}) hiển thị huy hiệu Badge 'Admin' màu đỏ nổi bật, nút Đăng xuất và lời chào chứa tên đầy đủ của Quản trị viên. Khu vực nội dung chứa bảng dữ liệu sử dụng điều khiển \texttt{asp:Repeater}, hiển thị đầy đủ các cột thông tin kèm cụm nút thao tác nghiệp vụ: nút [+ Thêm Mới], [Sửa] và [Xóa].
-    \item \textbf{Trang Người dùng (User.aspx):} Dành riêng cho vai trò User. Thanh điều hướng Navbar màu xanh (\#4f46e5) với huy hiệu 'Quyền: User'. Theo nguyên tắc quyền tối thiểu, trang này chỉ ở chế độ ĐỌC (Read-only), bảng Repeater hoàn toàn KHÔNG CÓ cột thao tác Sửa/Xóa.
-    \item \textbf{Trang Từ chối truy cập (AccessDenied.aspx):} Đóng vai trò là trang thông báo lỗi 403 Forbidden. Khi người dùng cố tình truy cập vượt quyền, trang sẽ hiển thị mã lỗi số 403 màu đỏ cỡ lớn, thông báo lý do bị từ chối và cung cấp 2 nút điều hướng: 'Quay về trang Người dùng' hoặc 'Đổi tài khoản' để đăng nhập lại.
-\end{enumerate}
+Nhằm mang lại trải nghiệm tối ưu, trực quan và bảo mật cao, hệ thống xây dựng mô hình điều hướng khép kín giữa các màn hình chức năng. Sơ đồ luồng kiểm soát truy cập và điều hướng tổng thể của hệ thống được minh họa chi tiết tại Hình \ref{fig:so_do_dieu_huong}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{so_do_dieu_huong_he_thong.png}
+\includegraphics[width=0.92\textwidth]{so_do_dieu_huong_he_thong.png}
 \caption{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role}\label{fig:so_do_dieu_huong}
 \end{figure}
 
+Dựa trên sơ đồ luồng điều hướng nêu trên, hệ thống bao gồm 4 màn hình giao diện độc lập được thiết kế đồng bộ theo phong cách hiện đại với thư viện Bootstrap 5:
+
+\paragraph{1. Trang Đăng nhập (Login.aspx):} Được thiết kế theo phong cách Split-screen (chia đôi màn hình) hiện đại. Nửa bên trái là khối thương hiệu với dải màu Gradient (\#4f46e5 đến \#7c3aed) và logo học phần. Nửa bên phải là form đăng nhập gồm các ô nhập liệu \texttt{asp:TextBox}, thông báo lỗi \texttt{asp:Label} (màu đỏ) và các điều khiển \texttt{asp:RequiredFieldValidator} bắt lỗi bỏ trống dữ liệu. Giao diện thực tế của màn hình Đăng nhập được thể hiện tại Hình \ref{fig:ui_login}.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{hinh2_3_login.jpg}
+\includegraphics[width=0.88\textwidth]{hinh2_3_login.jpg}
 \caption{Giao diện trang Đăng nhập hệ thống (Login.aspx) với Bootstrap 5}\label{fig:ui_login}
 \end{figure}
 
+\paragraph{2. Trang Quản trị (Admin.aspx):} Dành riêng cho tài khoản có vai trò Admin. Thanh điều hướng Navbar màu tối (\texttt{bg-dark}) hiển thị huy hiệu Badge 'Admin' màu đỏ nổi bật, nút Đăng xuất và lời chào chứa tên đầy đủ của Quản trị viên. Khu vực nội dung chứa bảng dữ liệu sử dụng điều khiển \texttt{asp:Repeater}, hiển thị đầy đủ các cột thông tin kèm cụm nút thao tác nghiệp vụ: nút [+ Thêm Mới], [Sửa] và [Xóa]. Giao diện màn hình Quản trị được thể hiện tại Hình \ref{fig:ui_admin}.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{hinh2_4_admin.jpg}
+\includegraphics[width=0.88\textwidth]{hinh2_4_admin.jpg}
 \caption{Giao diện trang Quản trị (Admin.aspx) với quyền hạn Admin và bảng Repeater}\label{fig:ui_admin}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.92\textwidth]{hinh2_5_user.jpg}
-\caption{Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only)}\label{fig:ui_user}
-\end{figure}
+\paragraph{3. Trang Người dùng (User.aspx):} Dành riêng cho tài khoản có vai trò User. Thanh điều hướng Navbar màu xanh (\#4f46e5) với huy hiệu 'Quyền: User'. Áp dụng chặt chẽ nguyên tắc quyền tối thiểu, trang này chỉ hoạt động ở chế độ ĐỌC (Read-only), bảng Repeater hoàn toàn KHÔNG CÓ cột thao tác Sửa/Xóa dữ liệu nhằm đảm bảo an toàn nghiệp vụ. Giao diện Cổng thông tin người dùng được thể hiện tại Hình \ref{fig:ui_user}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{hinh2_6_access_denied.jpg}
+\includegraphics[width=0.88\textwidth]{hinh2_5_user.jpg}
+\caption{Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only)}\label{fig:ui_user}
+\end{figure}
+
+\paragraph{4. Trang Từ chối truy cập (AccessDenied.aspx):} Đóng vai trò là trang cảnh báo lỗi an ninh 403 Forbidden. Khi người dùng thông thường cố tình can thiệp URL để truy cập vượt quyền vào trang Quản trị, hệ thống sẽ tự động chuyển hướng về trang này. Giao diện hiển thị mã lỗi số 403 màu đỏ cỡ lớn, giải thích lý do bị từ chối và cung cấp 2 nút điều hướng: 'Quay về trang Người dùng' hoặc 'Đổi tài khoản' để đăng nhập lại như thể hiện tại Hình \ref{fig:ui_accessdenied}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{hinh2_6_access_denied.jpg}
 \caption{Giao diện trang Từ chối truy cập 403 Forbidden (AccessDenied.aspx)}\label{fig:ui_accessdenied}
 \end{figure}
 
@@ -692,7 +698,7 @@ Theo yêu cầu của học phần, nhóm báo cáo có nhiệm vụ chủ trì 
     \end{enumerate}
 \end{itemize}
 
-Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho sinh viên trong lớp được quy định cụ thể như sau:
+Tiêu chí đánh giá năng lực và thang điểm (Rubric) chi tiết cho bài thực hành phân quyền 5 tiết của sinh viên được quy định cụ thể tại Bảng \ref{tab:rubric_danhgia}:
 
 \begin{table}[H]
 \centering
@@ -717,7 +723,7 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 \end{table}
 
 \section{Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}
-Để chứng minh tính đúng đắn và khả năng phòng thủ toàn diện của hệ thống, nhóm thực hiện quy trình kiểm thử với 5 kịch bản thực nghiệm:
+Để chứng minh tính đúng đắn và khả năng phòng thủ toàn diện của hệ thống trước các nguy cơ tấn công mạng phổ biến, nhóm đã xây dựng và thực thi 5 kịch bản kiểm thử an ninh thực nghiệm. Kết quả đánh giá chi tiết của từng kịch bản được tổng hợp tại Bảng \ref{tab:test_cases}:
 
 \begin{table}[H]
 \centering

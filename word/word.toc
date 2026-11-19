@@ -19,6 +19,10 @@
 \contentsline {section}{\numberline {2.1}Phân tích bài toán và thiết kế cơ sở dữ liệu trên SQL Server}{8}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Khởi tạo dự án ASP.NET Web Forms và cấu hình Web.config}{10}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Thiết kế giao diện người dùng hiện đại với Bootstrap 5}{11}{section.2.3}%
+\contentsline {paragraph}{1. Trang Đăng nhập (Login.aspx):}{12}{paragraph*.5}%
+\contentsline {paragraph}{2. Trang Quản trị (Admin.aspx):}{12}{paragraph*.6}%
+\contentsline {paragraph}{3. Trang Người dùng (User.aspx):}{13}{paragraph*.7}%
+\contentsline {paragraph}{4. Trang Từ chối truy cập (AccessDenied.aspx):}{13}{paragraph*.8}%
 \contentsline {section}{\numberline {2.4}Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}{14}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Cơ chế Đăng nhập an toàn và chống SQL Injection (Login.aspx.cs)}{14}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Cơ chế bảo vệ trang chống duyệt URL trực tiếp (Page\_Load)}{15}{subsection.2.4.2}%
@@ -26,7 +30,7 @@
 \contentsline {subsection}{\numberline {2.4.4}Xử lý Đăng xuất an toàn và hủy toàn bộ phiên làm việc (Logout.aspx.cs)}{17}{subsection.2.4.4}%
 \contentsline {section}{\numberline {2.5}Hướng dẫn thực hành cho lớp (Kịch bản 5 tiết thực hành)}{17}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}{18}{section.2.6}%
-\contentsline {chapter}{PHỤ LỤC: MÃ NGUỒN HOÀN CHỈNH}{20}{appendix*.5}%
-\contentsline {section}{Phụ lục A: Kịch bản Cơ sở dữ liệu (database.sql)}{20}{section*.6}%
+\contentsline {chapter}{PHỤ LỤC: MÃ NGUỒN HOÀN CHỈNH}{20}{appendix*.9}%
+\contentsline {section}{Phụ lục A: Kịch bản Cơ sở dữ liệu (database.sql)}{20}{section*.10}%
 \contentsline {section}{Phụ lục B: Mã nguồn giao diện Quản trị (Admin.aspx)}{21}{lstnumber.-2.30}%
 \contentsline {section}{Phụ lục C: Mã nguồn xử lý máy chủ (Admin.aspx.cs)}{23}{lstnumber.-3.78}%
