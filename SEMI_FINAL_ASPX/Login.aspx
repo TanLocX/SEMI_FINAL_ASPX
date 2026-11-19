@@ -72,14 +72,7 @@
                             </asp:RequiredFieldValidator>
                         </div>
 
-                        <!-- 4. Hàng Remember me & Quên mật khẩu (dàn đều 2 bên) -->
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="chkRemember" runat="server" CssClass="form-check-input" />
-                                <label class="form-check-label text-muted small" for="chkRemember">Remember me</label>
-                            </div>
-                            <a href="#" class="small text-decoration-none fw-semibold" style="color: #4f46e5;">Forgot password?</a>
-                        </div>
+                        
 
                         <!-- 5. Thông báo lỗi khi đăng nhập sai -->
                         <asp:Label ID="lblThongBao" runat="server" CssClass="text-danger small d-block text-center mb-3 fw-semibold"></asp:Label>
