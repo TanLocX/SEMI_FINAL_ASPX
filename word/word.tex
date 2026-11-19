@@ -368,23 +368,24 @@ Nhằm cung cấp cái nhìn tổng quan và đối chiếu rõ nét giữa các
 
 \begin{table}[H]
 \centering
-\small
-\renewcommand{\arraystretch}{1.2}
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Tiêu chí so sánh} & \textbf{Session State (Đề tài)} & \textbf{Forms Authentication} & \textbf{Token-based (JWT)} \\
 \midrule
-\textbf{Vị trí lưu trữ dữ liệu phiên} & 100\% trên bộ nhớ RAM của Web Server & Mã hóa trong Cookie máy khách (.ASPXAUTH) & Mã hóa trong chuỗi Token trên Client (LocalStorage/Cookie) \\
-\addlinespace
-\textbf{Mức độ phức tạp \& Triển khai} & Đơn giản, dễ học, tích hợp sẵn, phù hợp tuyệt đối cho môn học Web Forms & Trung bình, cấu hình qua file Web.config và web.sitemap & Phức tạp, đòi hỏi xử lý chữ ký HMAC/RSA, Token Refresh và CORS \\
-\addlinespace
-\textbf{Mức độ an toàn thông tin} & Rất cao (Client chỉ giữ ID ngẫu nhiên, không thể giả mạo dữ liệu quyền hạn) & Khá (Nếu lộ khóa MachineKey có thể bị giải mã Cookie) & Rất cao nếu dùng HttpOnly Cookie, nhưng dễ bị XSS nếu lưu trong LocalStorage \\
-\addlinespace
-\textbf{Khả năng mở rộng (Scale)} & Giới hạn khi chạy nhiều Server (cần dùng SQL Server Session State) & Tốt nếu dùng chung MachineKey giữa các Server & Xuất sắc, hoàn toàn Stateless, tối ưu cho Microservices và App di động \\
-\addlinespace
-\textbf{Quản lý Đăng xuất (Logout)} & Lập tức hủy bỏ trên Server (\texttt{Session.Abandon()}), an toàn tức thì & Xóa Cookie trên Client (\texttt{FormsAuth.SignOut()}) & Khó thu hồi Token trước hạn (cần cơ chế Blacklist/Redis) \\
-\addlinespace
-\textbf{Phù hợp ngữ cảnh nào} & Hệ thống quản trị nội bộ doanh nghiệp, đồ án sinh viên, trường học & Hệ thống Web Forms truyền thống đa trang & Single Page App (React/Vue/Angular), Mobile App, RESTful API \\
+\textbf{Vị trí lưu trữ dữ liệu phiên} & 100\% trên RAM Web Server & Mã hóa trong Cookie máy khách (.ASPXAUTH) & Chuỗi Token trên Client (LocalStorage/Cookie) \\
+\addlinespace[2pt]
+\textbf{Mức độ phức tạp \& Triển khai} & Đơn giản, tích hợp sẵn trong ASP.NET, phù hợp môn học & Trung bình, cấu hình qua file Web.config và web.sitemap & Phức tạp, cần xử lý chữ ký HMAC/RSA, Refresh Token, CORS \\
+\addlinespace[2pt]
+\textbf{Mức độ an toàn thông tin} & Rất cao (Client chỉ giữ SessionId, không thể giả mạo quyền) & Khá (Nếu lộ MachineKey có nguy cơ bị giải mã Cookie) & Rất cao với HttpOnly Cookie (dễ bị XSS nếu lưu LocalStorage) \\
+\addlinespace[2pt]
+\textbf{Khả năng mở rộng (Scale)} & Giới hạn khi mở rộng Server (cần SQL Server Session State) & Tốt nếu dùng chung MachineKey giữa các Web Server & Xuất sắc, hoàn toàn Stateless, tối ưu Microservices/App di động \\
+\addlinespace[2pt]
+\textbf{Quản lý Đăng xuất (Logout)} & Hủy tức thì trên Server (\texttt{Session.Abandon()}) & Xóa Cookie trên Client (\texttt{FormsAuth.SignOut()}) & Khó thu hồi trước hạn (cần cơ chế Blacklist/Redis) \\
+\addlinespace[2pt]
+\textbf{Phù hợp ngữ cảnh nào} & Quản trị nội bộ doanh nghiệp, đồ án sinh viên, trường học & Hệ thống Web Forms truyền thống đa trang & Single Page App (React/Vue), Mobile App, RESTful API \\
 \bottomrule
 \end{tabularx}
 \caption{So sánh chi tiết giữa Session State, Forms Authentication và JWT Token}\label{tab:ss_vs_forms_jwt}
