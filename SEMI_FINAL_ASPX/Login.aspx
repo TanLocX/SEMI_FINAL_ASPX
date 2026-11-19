@@ -15,23 +15,27 @@
                 <div class="col-md-6 text-white d-flex flex-column justify-content-between p-5" 
                     style="background: linear-gradient(135deg, #4f46e5, #7c3aed); min-height: 100vh;">
                     <div>
-                        <h4 class="fw-bold">LẬP TRÌNH WEB ASPX</h4>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-white text-primary px-3 py-2 fw-bold">NHÓM 6</span>
+                            <span class="text-white-50">|</span>
+                            <h5 class="fw-bold mb-0 text-white">LẬP TRÌNH WEB ASPX</h5>
+                        </div>
                     </div>
                     <div>
-                        <div class="fw-bold mb-3" style="font-size: 2.5rem; line-height: 1.2;">
-                            <p>Start your day with</p>
-                            
-                            <p>everything in one place.</p>
+                        <div class="fw-bold mb-3" style="font-size: 2.3rem; line-height: 1.25;">
+                            <p class="mb-2">Xác thực danh tính &amp;</p>
+                            <p class="mb-0">Phân quyền truy cập.</p>
                         </div>
                         
-                        <p class="lead" style="font-size: 1.1rem; opacity: 0.85;">
-                            Projects, docs, and conversations — organized so your team can focus on the work that matters.
+                        <p class="lead" style="font-size: 1.05rem; opacity: 0.9; line-height: 1.6;">
+                            Cơ chế kiểm soát an ninh 2 tầng: Xác thực người dùng (Authentication) và Phân quyền theo vai trò (Role-Based Authorization), phòng chống truy cập trái phép và bảo vệ an toàn dữ liệu.
                         </p>
                     </div>
                     <div>
-                        <p class="fst-italic" style="font-size: 0.9rem; opacity: 0.85;">
-                            “The cleanest tool we have ever rolled out.” — Dana K., Ops Lead
+                        <p class="fst-italic mb-0" style="font-size: 0.9rem; opacity: 0.85;">
+                            “Authentication xác định Bạn là ai — Authorization quyết định Bạn được phép làm gì.”
                         </p>
+                        <small class="text-white-50">Đề tài giữa kỳ: Authentication / Authorization (Login + Role)</small>
                     </div>
                 </div>
                 
@@ -44,17 +48,17 @@
         
                         <!-- 1. Tiêu đề form -->
                         <div class="mb-4">
-                            <h2 class="fw-bold text-dark">Welcome back</h2>
-                            <p class="text-muted small">Sign in to continue to your workspace.</p>
+                            <h2 class="fw-bold text-dark">Đăng nhập hệ thống</h2>
+                            <p class="text-muted small">Xác thực danh tính để phân quyền truy cập chức năng.</p>
                         </div>
 
-                        <!-- 2. Ô nhập Email / Tên đăng nhập -->
+                        <!-- 2. Ô nhập Tên đăng nhập -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Email address</label>
-                            <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control py-2" placeholder="you@company.com"></asp:TextBox>
+                            <label class="form-label fw-semibold">Tên đăng nhập (Username)</label>
+                            <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control py-2" placeholder="admin hoặc user"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvUsername" runat="server" 
                                 ControlToValidate="txtUsername" 
-                                
+                                ErrorMessage="Vui lòng nhập tên đăng nhập!"
                                 CssClass="text-danger small mt-1 d-block" 
                                 Display="Dynamic">
                             </asp:RequiredFieldValidator>
@@ -62,30 +66,34 @@
 
                         <!-- 3. Ô nhập Mật khẩu -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Password</label>
-                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control py-2" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+                            <label class="form-label fw-semibold">Mật khẩu (Password)</label>
+                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control py-2" TextMode="Password" placeholder="Nhập mật khẩu"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvPassword" runat="server" 
                                 ControlToValidate="txtPassword" 
-                                
+                                ErrorMessage="Vui lòng nhập mật khẩu!"
                                 CssClass="text-danger small mt-1 d-block" 
                                 Display="Dynamic">
                             </asp:RequiredFieldValidator>
                         </div>
 
-                        
-
                         <!-- 5. Thông báo lỗi khi đăng nhập sai -->
                         <asp:Label ID="lblThongBao" runat="server" CssClass="text-danger small d-block text-center mb-3 fw-semibold"></asp:Label>
 
                         <!-- 6. Nút Đăng nhập -->
-                        <asp:Button ID="btnLogin" runat="server" Text="Sign in" 
-                            CssClass="btn w-100 py-2 fw-semibold text-white mb-4" 
+                        <asp:Button ID="btnLogin" runat="server" Text="Đăng nhập hệ thống" 
+                            CssClass="btn w-100 py-2 fw-semibold text-white mb-3" 
                             style="background-color: #4f46e5;" 
                             OnClick="btnLogin_Click" />
 
-                        <!-- 7. Đăng ký tài khoản mới -->
-                        <div class="text-center small text-muted">
-                            New here? <a href="#" class="text-decoration-none fw-semibold" style="color: #4f46e5;">Create an account</a>
+                        <!-- 7. Hộp gợi ý tài khoản thử nghiệm -->
+                        <div class="p-3 bg-light rounded-3 border text-start small">
+                            <div class="fw-bold text-dark mb-1">
+                                <span class="badge bg-primary me-1">Tài khoản demo</span> Thử nghiệm hệ thống
+                            </div>
+                            <div class="text-muted" style="line-height: 1.5;">
+                                • <strong>Admin:</strong> <code>admin</code> / <code>123</code> (Toàn quyền quản trị)<br/>
+                                • <strong>User:</strong> <code>user</code> / <code>123</code> (Chế độ chỉ xem)
+                            </div>
                         </div>
 
                         
