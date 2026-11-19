@@ -23,8 +23,8 @@
                     </div>
                     <div>
                         <div class="fw-bold mb-3" style="font-size: 2.3rem; line-height: 1.25;">
-                            <p class="mb-2">Xác thực danh tính &amp;</p>
-                            <p class="mb-0">Phân quyền truy cập.</p>
+                            <p class="mb-2">AUTHENTICATION &amp;</p>
+                            <p class="mb-0">AUTHORIZATION</p>
                         </div>
                         
                         <p class="lead" style="font-size: 1.05rem; opacity: 0.9; line-height: 1.6;">
@@ -58,7 +58,7 @@
                             <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control py-2" placeholder="admin hoặc user"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvUsername" runat="server" 
                                 ControlToValidate="txtUsername" 
-                                ErrorMessage="Vui lòng nhập tên đăng nhập!"
+                                ErrorMessage=""
                                 CssClass="text-danger small mt-1 d-block" 
                                 Display="Dynamic">
                             </asp:RequiredFieldValidator>
@@ -70,7 +70,7 @@
                             <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control py-2" TextMode="Password" placeholder="Nhập mật khẩu"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvPassword" runat="server" 
                                 ControlToValidate="txtPassword" 
-                                ErrorMessage="Vui lòng nhập mật khẩu!"
+                                ErrorMessage=""
                                 CssClass="text-danger small mt-1 d-block" 
                                 Display="Dynamic">
                             </asp:RequiredFieldValidator>
@@ -85,16 +85,7 @@
                             style="background-color: #4f46e5;" 
                             OnClick="btnLogin_Click" />
 
-                        <!-- 7. Hộp gợi ý tài khoản thử nghiệm -->
-                        <div class="p-3 bg-light rounded-3 border text-start small">
-                            <div class="fw-bold text-dark mb-1">
-                                <span class="badge bg-primary me-1">Tài khoản demo</span> Thử nghiệm hệ thống
-                            </div>
-                            <div class="text-muted" style="line-height: 1.5;">
-                                • <strong>Admin:</strong> <code>admin</code> / <code>123</code> (Toàn quyền quản trị)<br/>
-                                • <strong>User:</strong> <code>user</code> / <code>123</code> (Chế độ chỉ xem)
-                            </div>
-                        </div>
+                       
 
                         
 

@@ -243,22 +243,22 @@
 \vspace*{-0.5cm}
 
 \begin{center}
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}X >{\raggedleft\arraybackslash}p{2.0cm}}
 \toprule
 \textbf{Ký hiệu} & \textbf{Tên hình ảnh mô tả} & \textbf{Trang} \\
 \midrule
-\textbf{Hình 1.1} & Mô hình kiến trúc vòng đời trang ASP.NET Web Forms và cơ chế PostBack & 3 \\
-\textbf{Hình 1.2} & Sơ đồ phân biệt giữa Authentication (Xác thực) và Authorization (Phân quyền) & 4 \\
-\textbf{Hình 1.3} & Cơ chế quản lý phiên Stateful Session giữa Web Server và Trình duyệt & 6 \\
-\textbf{Hình 2.1} & Sơ đồ cơ sở dữ liệu quan hệ bảng NguoiDung trong SQL Server & 13 \\
-\textbf{Hình 2.2} & Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role & 16 \\
-\textbf{Hình 2.3} & Giao diện trang Đăng nhập hệ thống (Login.aspx) với Bootstrap 5 hiện đại & 17 \\
-\textbf{Hình 2.4} & Giao diện trang Quản trị (Admin.aspx) với quyền hạn đầy đủ và bảng Repeater & 18 \\
-\textbf{Hình 2.5} & Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only) & 18 \\
-\textbf{Hình 2.6} & Giao diện trang Từ chối truy cập 403 Forbidden (AccessDenied.aspx) & 19 \\
-\textbf{Hình 2.7} & Thực nghiệm tấn công SQL Injection và kết quả bị chặn đứng bằng Parameterized Query & 31 \\
-\textbf{Hình 2.8} & Thực nghiệm bấm nút Back sau khi Logout và cơ chế Anti-BFCache tự động chuyển về Login & 32 \\
+\hyperref[fig:csdl_nguoidung]{\textbf{Hình 2.1}} & \hyperref[fig:csdl_nguoidung]{Dữ liệu thực tế của bảng NguoiDung trong SQL Server} & \pageref{fig:csdl_nguoidung} \\
+\addlinespace
+\hyperref[fig:so_do_dieu_huong]{\textbf{Hình 2.2}} & \hyperref[fig:so_do_dieu_huong]{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role} & \pageref{fig:so_do_dieu_huong} \\
+\addlinespace
+\hyperref[fig:ui_login]{\textbf{Hình 2.3}} & \hyperref[fig:ui_login]{Giao diện trang Đăng nhập hệ thống (Login.aspx)} & \pageref{fig:ui_login} \\
+\addlinespace
+\hyperref[fig:ui_admin]{\textbf{Hình 2.4}} & \hyperref[fig:ui_admin]{Giao diện trang Quản trị (Admin.aspx) với quyền hạn Admin và bảng Repeater} & \pageref{fig:ui_admin} \\
+\addlinespace
+\hyperref[fig:ui_user]{\textbf{Hình 2.5}} & \hyperref[fig:ui_user]{Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only)} & \pageref{fig:ui_user} \\
+\addlinespace
+\hyperref[fig:ui_accessdenied]{\textbf{Hình 2.6}} & \hyperref[fig:ui_accessdenied]{Giao diện trang cảnh báo Từ chối truy cập 403 Forbidden (AccessDenied.aspx)} & \pageref{fig:ui_accessdenied} \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -461,6 +461,12 @@ INSERT INTO NguoiDung (TenDangNhap, MatKhau, HoTen, Email, Quyen, TrangThai) VAL
 GO
 \end{lstlisting}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{hinh2_1_csdl_nguoidung.jpg}
+\caption{Dữ liệu thực tế của bảng NguoiDung trong SQL Server Management Studio}\label{fig:csdl_nguoidung}
+\end{figure}
+
 \section{Khởi tạo dự án ASP.NET Web Forms và cấu hình Web.config}
 Quy trình khởi tạo dự án trên phần mềm Microsoft Visual Studio 2022:
 \begin{itemize}
@@ -504,6 +510,30 @@ Hệ thống bao gồm 4 trang giao diện độc lập được thiết kế đ
 \centering
 \includegraphics[width=0.95\textwidth]{so_do_dieu_huong_he_thong.png}
 \caption{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role}\label{fig:so_do_dieu_huong}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{hinh2_3_login.jpg}
+\caption{Giao diện trang Đăng nhập hệ thống (Login.aspx) với Bootstrap 5}\label{fig:ui_login}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{hinh2_4_admin.jpg}
+\caption{Giao diện trang Quản trị (Admin.aspx) với quyền hạn Admin và bảng Repeater}\label{fig:ui_admin}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{hinh2_5_user.jpg}
+\caption{Giao diện Cổng thông tin người dùng (User.aspx) ở chế độ Chỉ xem (Read-only)}\label{fig:ui_user}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{hinh2_6_access_denied.jpg}
+\caption{Giao diện trang Từ chối truy cập 403 Forbidden (AccessDenied.aspx)}\label{fig:ui_accessdenied}
 \end{figure}
 
 \section{Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}
