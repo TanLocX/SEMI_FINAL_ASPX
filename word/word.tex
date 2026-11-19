@@ -21,6 +21,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
 \usepackage{titlesec}
 \usepackage{tikz}
 \usetikzlibrary{calc}
@@ -48,9 +49,7 @@
     pdftitle={Báo cáo tự học: Authentication và Authorization trong ASP.NET Web Forms}
 }
 
-,
-    pdftitle={Báo cáo tự học: Authentication và Authorization trong ASP.NET Web Forms}
-}
+
 
 % ==========================================
 % ĐỊNH DẠNG HEADER / FOOTER
@@ -174,7 +173,8 @@
 
 \begin{table}[h!]
 \centering
-\begin{tabularx}{\textwidth}{l p{5.5cm} X}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}p{5.0cm} >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Từ viết tắt} & \textbf{Thuật ngữ tiếng Anh} & \textbf{Giải nghĩa tiếng Việt} \\
 \midrule
@@ -207,7 +207,8 @@
 
 \begin{table}[h!]
 \centering
-\begin{tabularx}{\textwidth}{l X r}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}X >{\raggedleft\arraybackslash}p{2.0cm}}
 \toprule
 \textbf{Ký hiệu} & \textbf{Tên hình ảnh mô tả} & \textbf{Trang} \\
 \midrule
@@ -235,7 +236,8 @@
 
 \begin{table}[h!]
 \centering
-\begin{tabularx}{\textwidth}{c l c l X c}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{1.0cm} >{\raggedright\arraybackslash}p{3.2cm} >{\centering\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{1.8cm}}
 \toprule
 \textbf{STT} & \textbf{Họ và tên} & \textbf{MSSV} & \textbf{Vai trò} & \textbf{Nhiệm vụ cụ thể} & \textbf{Mức độ} \\
 \midrule
@@ -369,7 +371,8 @@ Bảng dưới đây tiến hành phân tích và so sánh chi tiết giữa 3 c
 \begin{table}[h!]
 \centering
 \small
-\begin{tabularx}{\textwidth}{p{3.2cm} X X X}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Tiêu chí so sánh} & \textbf{Session State (Đề tài)} & \textbf{Forms Authentication} & \textbf{Token-based (JWT)} \\
 \midrule
@@ -402,17 +405,18 @@ Cơ sở dữ liệu QL\_NguoiDung được thiết kế trên hệ quản trị
 \begin{table}[h!]
 \centering
 \small
-\begin{tabularx}{\textwidth}{l l l X l}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.5cm}}
 \toprule
-\textbf{Tên cột} & \textbf{Kiểu dữ liệu} & \textbf{Khóa / Ràng buộc} & \textbf{Mô tả nghiệp vụ} & \textbf{Ghi chú bảo mật} \\
+\textbf{Tên cột} & \textbf{Kiểu dữ liệu} & \textbf{Khóa / Ràng buộc} & \textbf{Mô tả nghiệp vụ} & \textbf{Ghi chú an ninh} \\
 \midrule
-\texttt{Id} & INT & PRIMARY KEY, IDENTITY(1,1) & Mã định danh duy nhất & Tự tăng, không thể sửa \\
-\texttt{TenDangNhap} & VARCHAR(50) & NOT NULL, UNIQUE & Tên tài khoản đăng nhập & Chỉ mục duy nhất chống trùng \\
-\texttt{MatKhau} & VARCHAR(50) & NOT NULL & Mật khẩu xác thực & Đối chiếu khi đăng nhập \\
-\texttt{HoTen} & NVARCHAR(100) & NOT NULL & Họ và tên đầy đủ & Lưu tiếng Việt có dấu \\
-\texttt{Email} & VARCHAR(100) & NULL & Địa chỉ thư điện tử & Tra cứu và liên hệ \\
-\texttt{Quyen} & VARCHAR(20) & NOT NULL & Vai trò: 'Admin' hoặc 'User' & Trọng tâm Authorization \\
-\texttt{TrangThai} & NVARCHAR(30) & DEFAULT N'Đang hoạt động' & Tình trạng tài khoản & Khóa / kích hoạt tài khoản \\
+\texttt{Id} & INT & PRIMARY KEY,\newline IDENTITY(1,1) & Mã định danh duy nhất của người dùng & Khóa chính tự tăng, bất biến \\
+\texttt{TenDangNhap} & VARCHAR(50) & NOT NULL, UNIQUE & Tên tài khoản đăng nhập hệ thống & Unique Index chống tạo trùng \\
+\texttt{MatKhau} & VARCHAR(50) & NOT NULL & Mật khẩu xác thực đăng nhập & Cần mã hóa băm (Hash/Salt) \\
+\texttt{HoTen} & NVARCHAR(100) & NOT NULL & Họ và tên đầy đủ hiển thị & Hỗ trợ Unicode Tiếng Việt \\
+\texttt{Email} & VARCHAR(100) & NULL & Hòm thư điện tử liên hệ & Tra cứu danh bạ nội bộ \\
+\texttt{Quyen} & VARCHAR(20) & NOT NULL & Quyền hạn: \textbf{'Admin'} hoặc \textbf{'User'} & Trọng tâm kiểm soát Authorization \\
+\texttt{TrangThai} & NVARCHAR(30) & DEFAULT N'Đang hoạt động' & Trạng thái hoạt động tài khoản & Cho phép khóa/kích hoạt phiên \\
 \bottomrule
 \end{tabularx}
 \caption{Đặc tả cấu trúc bảng dữ liệu NguoiDung trong CSDL QL\_NguoiDung}
@@ -563,9 +567,9 @@ protected void btnLogin_Click(object sender, EventArgs e)
 \begin{lstlisting}[language={[Sharp]C}, caption={Cơ chế bảo vệ 2 tầng trong Page\_Load của Admin.aspx.cs}]
 protected void Page_Load(object sender, EventArgs e)
 {
-    // =========================================================================
+    // ---------------------------------------------------------
     // BUOC 1: KIEM TRA AUTHENTICATION (XAC THUC DANH TINH)
-    // =========================================================================
+    // ---------------------------------------------------------
     // Neu chua dang nhap (Session["Username"] == null) -> Duoi ngay ve Login.aspx
     if (Session["Username"] == null)
     {
@@ -573,9 +577,9 @@ protected void Page_Load(object sender, EventArgs e)
         return; // Dung thuc thi toan bo code ben duoi ngay lap tuc!
     }
 
-    // =========================================================================
+    // ---------------------------------------------------------
     // BUOC 2: KIEM TRA AUTHORIZATION (PHAN QUYEN TRUY CAP)
-    // =========================================================================
+    // ---------------------------------------------------------
     // Da dang nhap nhung Role KHONG PHAI "Admin" -> Chan lai va day sang 403
     if (Session["Role"] == null || Session["Role"].ToString() != "Admin")
     {
@@ -664,7 +668,8 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 \begin{table}[h!]
 \centering
 \small
-\begin{tabularx}{\textwidth}{l X c l}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}p{3.5cm}}
 \toprule
 \textbf{Tiêu chí đánh giá} & \textbf{Mô tả yêu cầu kỹ thuật} & \textbf{Điểm chuẩn} & \textbf{Kết quả nghiệm thu} \\
 \midrule
@@ -688,19 +693,20 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 \begin{table}[h!]
 \centering
 \footnotesize
-\begin{tabularx}{\textwidth}{p{2.6cm} p{2.2cm} p{3.2cm} X c}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{1.8cm}}
 \toprule
 \textbf{Kịch bản kiểm thử} & \textbf{Mục tiêu kiểm tra} & \textbf{Thao tác thực nghiệm} & \textbf{Kết quả thực tế} & \textbf{Đánh giá} \\
 \midrule
-\textbf{Kịch bản 1: Force Browsing} & Kiểm tra Authentication khi chưa đăng nhập & Mở tab ẩn danh, gõ trực tiếp: http://localhost:xxxx/Admin.aspx rồi nhấn Enter & Phát hiện Session null, chuyển hướng (Redirect 302) về Login.aspx. Không lộ dữ liệu & \textbf{\color{green!60!black}ĐẠT (PASS)} \\
+\textbf{Kịch bản 1: Force Browsing} & Kiểm tra Authentication khi chưa đăng nhập & Mở tab ẩn danh, gõ trực tiếp URL:\newline \texttt{.../Admin.aspx}\newline rồi nhấn phím Enter & Phát hiện Session null, chuyển hướng (Redirect 302) về Login.aspx. Tuyệt đối không lộ dữ liệu & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \addlinespace
-\textbf{Kịch bản 2: Privilege Escalation} & Kiểm tra Authorization phân quyền vai trò & Đăng nhập 'user' / '123' -> Vào User.aspx. Sửa URL thành Admin.aspx rồi Enter & Nhận thấy Session['Role'] != 'Admin'. Lập tức đá sang AccessDenied.aspx (Lỗi 403) & \textbf{\color{green!60!black}ĐẠT (PASS)} \\
+\textbf{Kịch bản 2: Privilege Escalation} & Kiểm tra Authorization phân quyền vai trò & Đăng nhập User thường $\rightarrow$ Vào User.aspx. Sửa URL thành Admin.aspx rồi Enter & Nhận thấy Session['Role'] != 'Admin'. Lập tức đá sang AccessDenied.aspx (Mã lỗi 403) & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \addlinespace
-\textbf{Kịch bản 3: SQL Injection} & Khả năng bảo vệ của Parameterized Query & Ô Tên đăng nhập: admin' --. Ô Mật khẩu: gõ bừa bất kỳ (abc) rồi bấm Đăng nhập & Thông báo đỏ: 'Tài khoản hoặc mật khẩu không chính xác!'. Không bị vượt mặt & \textbf{\color{green!60!black}ĐẠT (PASS)} \\
+\textbf{Kịch bản 3: SQL Injection} & Khả năng bảo vệ của Parameterized Query & Tên đăng nhập: \texttt{admin' --}\newline Mật khẩu: gõ tùy ý\newline rồi bấm nút Đăng nhập & Thông báo lỗi đỏ: \textit{'Tài khoản hoặc mật khẩu không chính xác!'}. Không thể vượt mặt & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \addlinespace
-\textbf{Kịch bản 4: Anti-BFCache Back Button} & Vô hiệu hóa cache trình duyệt sau Logout & Đăng nhập Admin -> Bấm 'Đăng xuất' -> Bấm nút mũi tên Back (<-) của trình duyệt & Sự kiện pageshow phát hiện cache, ép reload. Server thấy Session null nên đá về Login & \textbf{\color{green!60!black}ĐẠT (PASS)} \\
+\textbf{Kịch bản 4: Anti-BFCache Back Button} & Vô hiệu hóa Cache trình duyệt sau Logout & Đăng nhập Admin $\rightarrow$ Bấm 'Đăng xuất' $\rightarrow$ Bấm nút mũi tên Back ($\leftarrow$) trình duyệt & Sự kiện \texttt{pageshow} phát hiện cache, ép reload. Server thấy Session null nên đá về Login & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \addlinespace
-\textbf{Kịch bản 5: DOM Tampering F12} & Nguyên tắc Quyền tối thiểu \& Double-Check & Đăng nhập quyền User -> Bấm F12 kiểm tra mã nguồn bảng danh sách thành viên & HTML không sinh nút Sửa/Xóa của Admin. Mọi request giả mạo bị chặn ở Server & \textbf{\color{green!60!black}ĐẠT (PASS)} \\
+\textbf{Kịch bản 5: DOM Tampering F12} & Nguyên tắc Quyền tối thiểu \& Double-Check & Đăng nhập quyền User $\rightarrow$ Nhấn F12 kiểm tra mã nguồn HTML của bảng & HTML không hề sinh nút Sửa/Xóa của Admin. Mọi request giả mạo bị chặn ở Server & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \bottomrule
 \end{tabularx}
 \caption{Bảng kết quả kiểm thử an ninh 5 kịch bản thực tế}

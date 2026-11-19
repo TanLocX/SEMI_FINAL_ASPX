@@ -1,6 +1,6 @@
 \contentsline {chapter}{DANH MỤC TỪ VIẾT TẮT}{iii}{chapter*.2}%
-\contentsline {chapter}{DANH MỤC HÌNH ẢNH}{iv}{chapter*.3}%
-\contentsline {chapter}{BẢNG PHÂN CÔNG NHIỆM VỤ NHÓM}{v}{chapter*.4}%
+\contentsline {chapter}{DANH MỤC HÌNH ẢNH}{v}{chapter*.3}%
+\contentsline {chapter}{BẢNG PHÂN CÔNG NHIỆM VỤ NHÓM}{vi}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}CƠ SỞ LÝ THUYẾT VỀ XÁC THỰC VÀ PHÂN QUYỀN}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Tổng quan về nền tảng ASP.NET Web Forms}{2}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Kiến trúc và mô hình lập trình hướng sự kiện (Event-Driven Programming)}{2}{subsection.1.1.1}%
@@ -19,13 +19,13 @@
 \contentsline {section}{\numberline {2.1}Phân tích bài toán và thiết kế cơ sở dữ liệu trên SQL Server}{9}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Khởi tạo dự án ASP.NET Web Forms và cấu hình Web.config}{11}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Thiết kế giao diện người dùng hiện đại với Bootstrap 5}{12}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}{13}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Cơ chế Đăng nhập an toàn và chống SQL Injection (Login.aspx.cs)}{13}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Cơ chế bảo vệ trang chống duyệt URL trực tiếp (Page\_Load)}{15}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Cơ chế vô hiệu hóa Cache trình duyệt và chống nút Back (Anti-BFCache)}{16}{subsection.2.4.3}%
-\contentsline {subsection}{\numberline {2.4.4}Xử lý Đăng xuất an toàn và hủy toàn bộ phiên làm việc (Logout.aspx.cs)}{17}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.4}Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}{12}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Cơ chế Đăng nhập an toàn và chống SQL Injection (Login.aspx.cs)}{12}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Cơ chế bảo vệ trang chống duyệt URL trực tiếp (Page\_Load)}{14}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Cơ chế vô hiệu hóa Cache trình duyệt và chống nút Back (Anti-BFCache)}{15}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Xử lý Đăng xuất an toàn và hủy toàn bộ phiên làm việc (Logout.aspx.cs)}{16}{subsection.2.4.4}%
 \contentsline {section}{\numberline {2.5}Hướng dẫn thực hành cho lớp (Kịch bản 5 tiết thực hành)}{17}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}{19}{section.2.6}%
+\contentsline {section}{\numberline {2.6}Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}{17}{section.2.6}%
 \contentsline {chapter}{PHỤ LỤC: MÃ NGUỒN HOÀN CHỈNH}{20}{appendix*.5}%
 \contentsline {section}{Phụ lục A: Kịch bản Cơ sở dữ liệu (database.sql)}{20}{section*.6}%
 \contentsline {section}{Phụ lục B: Mã nguồn giao diện Quản trị (Admin.aspx)}{21}{lstnumber.-2.30}%
