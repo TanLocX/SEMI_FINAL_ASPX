@@ -107,6 +107,12 @@
     escapeinside={\%*}{*)}
 }
 
+\renewcommand{\contentsname}{MỤC LỤC}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\listtablename}{DANH MỤC BẢNG BIỂU}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH ẢNH}
+
 \begin{document}
 
 % ==========================================
@@ -198,6 +204,31 @@
 \textbf{SQLi} & SQL Injection & Hình thức tấn công chèn mã độc vào câu lệnh truy vấn SQL \\
 \textbf{SSMS} & SQL Server Management Studio & Công cụ quản trị cơ sở dữ liệu Microsoft SQL Server \\
 \textbf{UI / UX} & User Interface / User Experience & Giao diện người dùng / Trải nghiệm người dùng \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\newpage
+
+% ==========================================
+% DANH MỤC BẢNG BIỂU
+% ==========================================
+\chapter*{DANH MỤC BẢNG BIỂU}
+\addcontentsline{toc}{chapter}{DANH MỤC BẢNG BIỂU}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm} >{\raggedright\arraybackslash}X >{\raggedleft\arraybackslash}p{2.0cm}}
+\toprule
+\textbf{Ký hiệu} & \textbf{Tên bảng biểu mô tả} & \textbf{Trang} \\
+\midrule
+\hyperref[tab:ss_vs_forms_jwt]{\textbf{Bảng 1.1}} & \hyperref[tab:ss_vs_forms_jwt]{So sánh chi tiết giữa Session State, Forms Authentication và JWT Token} & \pageref{tab:ss_vs_forms_jwt} \\
+\addlinespace
+\hyperref[tab:nguoidung_schema]{\textbf{Bảng 2.1}} & \hyperref[tab:nguoidung_schema]{Đặc tả cấu trúc bảng dữ liệu NguoiDung trong CSDL QL\_NguoiDung} & \pageref{tab:nguoidung_schema} \\
+\addlinespace
+\hyperref[tab:rubric_danhgia]{\textbf{Bảng 2.2}} & \hyperref[tab:rubric_danhgia]{Tiêu chí đánh giá và Rubric chấm điểm bài thực hành phân quyền 5 tiết} & \pageref{tab:rubric_danhgia} \\
+\addlinespace
+\hyperref[tab:test_cases]{\textbf{Bảng 2.3}} & \hyperref[tab:test_cases]{Kết quả kiểm thử an ninh 5 kịch bản thực tế} & \pageref{tab:test_cases} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -354,7 +385,7 @@ Bảng dưới đây tiến hành phân tích và so sánh chi tiết giữa 3 c
 \textbf{Phù hợp ngữ cảnh nào} & Hệ thống quản trị nội bộ doanh nghiệp, đồ án sinh viên, trường học & Hệ thống Web Forms truyền thống đa trang & Single Page App (React/Vue/Angular), Mobile App, RESTful API \\
 \bottomrule
 \end{tabularx}
-\caption{Bảng so sánh chi tiết giữa Session State, Forms Authentication và JWT Token}
+\caption{So sánh chi tiết giữa Session State, Forms Authentication và JWT Token}\label{tab:ss_vs_forms_jwt}
 \end{table}
 
 % ==========================================
@@ -384,7 +415,7 @@ Cơ sở dữ liệu QL\_NguoiDung được thiết kế trên hệ quản trị
 \texttt{TrangThai} & NVARCHAR(30) & DEFAULT N'Đang hoạt động' & Trạng thái hoạt động tài khoản & Cho phép khóa/kích hoạt phiên \\
 \bottomrule
 \end{tabularx}
-\caption{Đặc tả cấu trúc bảng dữ liệu NguoiDung trong CSDL QL\_NguoiDung}
+\caption{Đặc tả cấu trúc bảng dữ liệu NguoiDung trong CSDL QL\_NguoiDung}\label{tab:nguoidung_schema}
 \end{table}
 
 \begin{tcolorbox}[colback=notebg,colframe=borderblue,title=\textbf{ĐẶC TẢ NGHIỆP VỤ PHÂN QUYỀN}]
@@ -471,7 +502,7 @@ Hệ thống bao gồm 4 trang giao diện độc lập được thiết kế đ
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.95\textwidth]{so_do_dieu_huong_he_thong.png}
-\caption{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role}
+\caption{Sơ đồ luồng điều hướng và kiểm soát truy cập hệ thống Login + Role}\label{fig:so_do_dieu_huong}
 \end{figure}
 
 \section{Lập trình xử lý nghiệp vụ và cài đặt 5 cơ chế phòng thủ an ninh}
@@ -649,7 +680,7 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 5. Thao tác và Tác phong & Thao tác thành thạo, trả lời được câu hỏi vấn đáp ngắn về sự khác biệt giữa Authentication và Authorization & 1.0 điểm & Hiểu bản chất vấn đề \\
 \bottomrule
 \end{tabularx}
-\caption{Bảng tiêu chí chấm điểm (Rubric) bài thực hành phân quyền 5 tiết}
+\caption{Tiêu chí đánh giá và Rubric chấm điểm bài thực hành phân quyền 5 tiết}\label{tab:rubric_danhgia}
 \end{table}
 
 \section{Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}
@@ -674,7 +705,7 @@ Tiêu chí đánh giá và Rubric chấm điểm bài thực hành 5 tiết cho 
 \textbf{Kịch bản 5: DOM Tampering F12} & Nguyên tắc Quyền tối thiểu \& Double-Check & Đăng nhập quyền User $\rightarrow$ Nhấn F12 kiểm tra mã nguồn HTML của bảng & HTML không hề sinh nút Sửa/Xóa của Admin. Mọi request giả mạo bị chặn ở Server & \textbf{\color{green!60!black}ĐẠT\newline(PASS)} \\
 \bottomrule
 \end{tabularx}
-\caption{Bảng kết quả kiểm thử an ninh 5 kịch bản thực tế}
+\caption{Kết quả kiểm thử an ninh 5 kịch bản thực tế}\label{tab:test_cases}
 \end{table}
 
 % ==========================================

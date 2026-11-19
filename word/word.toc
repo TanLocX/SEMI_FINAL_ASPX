@@ -1,5 +1,6 @@
 \contentsline {chapter}{DANH MỤC TỪ VIẾT TẮT}{iii}{chapter*.2}%
-\contentsline {chapter}{DANH MỤC HÌNH ẢNH}{v}{chapter*.3}%
+\contentsline {chapter}{DANH MỤC BẢNG BIỂU}{v}{chapter*.3}%
+\contentsline {chapter}{DANH MỤC HÌNH ẢNH}{vi}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}CƠ SỞ LÝ THUYẾT VỀ XÁC THỰC VÀ PHÂN QUYỀN}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Tổng quan về nền tảng ASP.NET Web Forms}{1}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Kiến trúc và mô hình lập trình hướng sự kiện (Event-Driven Programming)}{1}{subsection.1.1.1}%
@@ -25,7 +26,7 @@
 \contentsline {subsection}{\numberline {2.4.4}Xử lý Đăng xuất an toàn và hủy toàn bộ phiên làm việc (Logout.aspx.cs)}{15}{subsection.2.4.4}%
 \contentsline {section}{\numberline {2.5}Hướng dẫn thực hành cho lớp (Kịch bản 5 tiết thực hành)}{16}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Kịch bản kiểm thử an ninh hệ thống (5 Test Cases thực nghiệm)}{16}{section.2.6}%
-\contentsline {chapter}{PHỤ LỤC: MÃ NGUỒN HOÀN CHỈNH}{19}{appendix*.4}%
-\contentsline {section}{Phụ lục A: Kịch bản Cơ sở dữ liệu (database.sql)}{19}{section*.5}%
+\contentsline {chapter}{PHỤ LỤC: MÃ NGUỒN HOÀN CHỈNH}{19}{appendix*.5}%
+\contentsline {section}{Phụ lục A: Kịch bản Cơ sở dữ liệu (database.sql)}{19}{section*.6}%
 \contentsline {section}{Phụ lục B: Mã nguồn giao diện Quản trị (Admin.aspx)}{20}{lstnumber.-2.30}%
 \contentsline {section}{Phụ lục C: Mã nguồn xử lý máy chủ (Admin.aspx.cs)}{22}{lstnumber.-3.78}%
